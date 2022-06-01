@@ -1,6 +1,6 @@
 
 import React from "react";
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ChakraProvider } from "@chakra-ui/react";
 
 import Header from "./components/Header";
@@ -15,5 +15,6 @@ function App() {
   )
 }
 
-const rootElement = document.getElementById("root")
-render(<App />, rootElement)
+const container = document.getElementById("root")
+const rootElement = createRoot(container)
+rootElement.render(<App tab="home" />)
