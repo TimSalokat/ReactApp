@@ -31,9 +31,13 @@ export default function Todos() {
     const todos = await response.json()
     setTodos(todos.data)
   }
+
+  
   useEffect(() => {
     fetchTodos()
   }, [])
+
+
   return (
     <TodosContext.Provider value={{todos, fetchTodos}}>
         <AddTodo />

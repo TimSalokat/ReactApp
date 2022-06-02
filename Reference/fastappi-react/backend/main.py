@@ -1,4 +1,5 @@
-
+#doesnt run on python3
+#to run type python main.py
 import uvicorn
 
 if __name__ == "__main__":
