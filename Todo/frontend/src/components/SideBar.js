@@ -6,8 +6,7 @@ const SideBar = ({ closeNav }) => {
     <div>
         <div id="Sidebar" className="sidebar">
             <a className="closebtn" onClick={closeNav}>Close</a>
-            <a href="#Home">Home</a>
-            <a href="#Todo">Todo-List</a>
+            <a href="#">Home</a>
         </div>
     </div>
   )
