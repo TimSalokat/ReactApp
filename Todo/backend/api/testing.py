@@ -13,7 +13,7 @@ client = TestClient(app)
 
 def test_add_item():
 
-    response = client.post("/add-todo", json={"label":"adf","isDone":False})
+    response = client.post("/add-todo", json='"label":"adf","isDone":False')
     assert response.status_code == 200
     assert response.json() == "Added todo"
 

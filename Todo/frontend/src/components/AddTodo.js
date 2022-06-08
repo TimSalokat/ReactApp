@@ -13,20 +13,21 @@ const AddTodo = ({ closeForm, onAdd }) => {
     }
 
     return (
-        <div className="form-popup" id="myForm">
-            <form className="form-container" onSubmit={onSubmit}>
-                <h1>New Todo</h1>
+        <div className="form_add_todo" id="myForm">
+            <form className="form_container" onSubmit={onSubmit}>
+                <h1>Add Todo</h1>
 
-                <label><b>Label</b></label>
+                <label><b>Task</b></label>
                 <input 
                     type="text" 
-                    placeholder="Enter Label" 
+                    placeholder="Enter Task" 
                     value={label} 
                     onChange={(e) => setLabel(e.target.value)}
                     required/>
-
-                <button type="submit" className="btn">Create</button>
-                <button type="button" className="btn cancel" onClick={closeForm}>Close</button>
+                <div className="form_button_container">
+                    <button type="submit" className="btn">Create</button>
+                    <button type="button" className="btn cancel" onClick={closeForm}>Close</button>
+                </div>
             </form>
         </div>
     )

@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+:root {
+  --seperator: #e7e7e7;
+  --orange_seperator: rgb(216, 122, 14);
+}
+
+body, #root{
+  font-family: 'Poppins', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
 /* The sidebar menu */
 .sidebar {
     height: 100%; /* 100% Full-height */
@@ -31,24 +44,34 @@
   /* Position and style the close button (top right corner) */
   .sidebar .closebtn {
     position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-right: 105px;
+    top: 15px;
+    right: 20px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #818181;
+  }
+
+  .sidebar .closebtn:hover {
+    color: #f1f1f1;
   }
   
   /* The button used to open the sidebar */
-  .openbtn {
-    font-size: 20px;
+  .openbtn_side {
+    height: 100%;
+    font-size: 25px;
     cursor: pointer;
-    background-color: #111;
     color: white;
     padding: 10px 15px;
     border: none;
+    float: left;
   }
   
-  .openbtn:hover {
+  .openbtn_side:hover {
     background-color: #444;
+    font-size: 28px;
+    padding: 8.5px 13.5px;
+    background-color: #575757;
+    border-radius: 10px;
   }
   
   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -65,8 +88,11 @@
 
   /* Add a black background color to the top navigation */
 .topnav {
-    background-color: #333;
+    background-color: #444;
     overflow: hidden;
+    max-height: 70px;
+    margin: 0px;
+    padding: 0px;
   }
   
   /* Style the links inside the navigation bar */
@@ -74,32 +100,25 @@
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 8px 15px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 19px;
   }
   
   /* Change the color of links on hover */
   .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+    /* text-decoration: underline; */
+    background-color: #575757;
+    border-radius: 10px;
   }
   
   /* Add a color to the active/current link */
   .topnav a.active {
-    background-color: #04AA6D;
     color: white;
   }
 
-  .topnav button {
-      padding: 14px 16px;
-      font-size: 17px;
-      float: left;
-  }
-
-
   /* Button used to open the contact form - fixed at the bottom of the page */
-  .open-button {
+  .openbtn_form {
     background-color: #555;
     color: white;
     padding: 16px 20px;
@@ -113,24 +132,32 @@
   }
   
   /* The popup form - hidden by default */
-  .form-popup {
+  .form_add_todo {
     display: none;
     position: fixed;
     bottom: 0;
     right: 15px;
     border: 3px solid #f1f1f1;
+    border-radius: 10px;
+    bottom: 5%;
+    right: 5%;
     z-index: 9;
   }
   
   /* Add styles to the form container */
-  .form-container {
+  .form_container {
     max-width: 300px;
     padding: 10px;
     background-color: white;
   }
+
+  .form_button_container {
+    display: grid;
+    grid-template-areas: "a b";
+  }
   
   /* Full-width input fields */
-  .form-container input[type=text], .form-container input[type=password] {
+  .form_container input[type=text], .form_container input[type=password] {
     width: 90%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -139,17 +166,17 @@
   }
   
   /* When the inputs get focus, do something */
-  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  .form_container input[type=text]:focus, .form_container input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
   
   /* Set a style for the submit/login button */
-  .form-container .btn {
-    background-color: #04AA6D;
-    color: white;
+  .form_container .btn {
+    background-color: rgb(170, 255, 159);
+    color: black;
     padding: 16px 20px;
-    border: none;
+    border: 1px solid gray;
     cursor: pointer;
     width: 100%;
     margin-bottom:10px;
@@ -157,11 +184,106 @@
   }
   
   /* Add a red background color to the cancel button */
-  .form-container .cancel {
-    background-color: red;
+  .form_container .cancel {
+    background-color: #ff818b;
   }
   
   /* Add some hover effects to buttons */
-  .form-container .btn:hover, .open-button:hover {
+  .form_container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+
+  /* Button for opening the form */
+  .form_add_todo_btn {
+    font-size: 70px;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    margin: 0;
+    padding: 20px 20px;
+    color: #818181;
+  }
+
+  .form_add_todo_btn:hover {
+    cursor: pointer;
+    font-size: 75px;
+    padding: 17.5px 17.5px;
+    color: #888888;
+  }
+
+
+/* Todo stuff */
+
+.all_todos_container {
+  display: grid;
+  grid-template-areas: " a b ";
+}
+
+.todo_container {
+  box-sizing: border-box;
+  overflow: auto;
+  min-height: 170px;
+  margin: 30px auto;
+  padding: 0px 30px;
+  border-radius: 0px;
+  /* background-color: #e7e7e7; */
+  border-bottom: 2px solid #e7e7e7;
+  width: 100%;
+}
+
+.todo_container h1 {
+  padding-top: 0px;
+  font-size: 35px;
+  border-bottom: 3px solid var(--orange_seperator);
+  width: fit-content;
+}
+
+.todo_item {
+  display: grid;
+  grid-template-areas:"a b";
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 10px auto;
+  padding-left: 20px;
+  border-radius: 2px;
+  background-color: #f3f3f3;
+  /* border: 2px solid #b9b9b9;
+  background-color: #cecece; */
+}
+
+.todo_item h3 {
+  font-size: 20px;
+  margin: 0px;
+  padding-top: 10px;
+}
+
+.todo_item p {
+  font-size: 15px;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.todo_del_btn_container {
+  grid-area: b;
+  min-width: 20px;
+  offset-anchor: right;
+  display: block;
+  float: right;
+}
+
+.todo_del_btn {
+  padding: 0px;
+  padding-right: 5px;
+  margin: 0px;
+  font-size: 40px;
+  cursor: pointer;
+  float: right;
+}
+
+.todo_del_btn:hover {
+  font-size: 45px;
+  padding-right: 2.5px;
+  color: rgb(160, 0, 0);
+}

@@ -35,12 +35,12 @@ app.add_middleware(
 todos= [
     
     {
-        "label": "Read a book",
-        "isDone": True
+        "label": "Placeholder not done",
+        "isDone": False
     },
     {
-        "label": "Cycle around town",
-        "isDone": False
+        "label": "Placeholder done",
+        "isDone": True
     }
 ]
 
@@ -59,6 +59,13 @@ async def get_todos() -> dict:
 @app.post("/add-todo")
 async def add_todo(new_todo: str = Body(...)):
     new_todo_dict = json.loads(new_todo)
-    log(new_todo_dict["label"])
+    log(f"Added <{new_todo_dict['label']}>")
     todos.append(new_todo_dict)                  
     return new_todo_dict
+
+@app.delete("/del-todo")
+async def del_todo(index: int): 
+    log(f"Deleted <{todos[index]['label']}>")
+    del todos[index]
+    return todos
+

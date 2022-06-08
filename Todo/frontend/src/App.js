@@ -1,9 +1,11 @@
 
 import { useState, useEffect } from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai"
 
 import SideBar from "./components/SideBar";
 import NavBar  from "./components/NavBar";
 import ActiveTasks from "./components/ActiveTodos";
+import FinishedTasks from "./components/FinishedTasks";
 import AddTodo from "./components/AddTodo";
 
 const App = () => {
@@ -28,10 +30,7 @@ const App = () => {
 
     //Add a todo
     const addTodo = async (new_todo) => {
-        console.log(new_todo)
-        console.log(JSON.stringify(new_todo))
-        console.log(typeof(new_todo))
-        console.log(typeof(JSON.stringify(new_todo)))
+        console.log("Sending request to add item")
         const res = await fetch("http://localhost:8000/add-todo", {
             method: "POST",
             mode: "cors",
@@ -43,15 +42,38 @@ const App = () => {
         setTodos([...todos, data])
     }
 
+    //Delete a Todo
+    const delTodo = async (id) => {
+        console.log("Sending request to delete item with index " + id)
+        const res = await fetch(`http://localhost:8000/del-todo?index=${id}`, {
+            method: "DELETE",
+            mode: "cors",
+        })
+
+        res.status === 200
+            ? setTodos(await res.json())
+            : alert("Error")
+    }
+
     return (
         <>
             <SideBar closeNav={closeNav}/>
             <NavBar openNav={openNav}/>
+
             <div id="main">
-                <ActiveTasks todos={todos}/>
+                <div className="all_todos_container">
+                    <ActiveTasks todos={todos.filter((todo) => todo.isDone === false)} onDelete={delTodo}/>
+                    <FinishedTasks todos={todos.filter((todo) => todo.isDone === true)} onDelete={delTodo} />
+                </div>
             </div>
+
+
             <AddTodo closeForm={closeForm} onAdd={addTodo} />
-            <button onClick={openForm}>TempFormButton</button>
+            <AiOutlinePlusCircle 
+                id="open_form_btn" 
+                className="form_add_todo_btn" 
+                onClick={openForm}
+            />
         </>
     )
 }
@@ -69,9 +91,11 @@ const closeNav = () => {
 //Form field for a new Todo | open and close
 function openForm() {
     document.getElementById("myForm").style.display = "block";
+    document.getElementById("open_form_btn").style.display = "none";
 }
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+    document.getElementById("open_form_btn").style.display = "block";
 }
 
 export default App
