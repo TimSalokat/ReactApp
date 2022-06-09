@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai"
 
 import SideBar from "./components/SideBar";
