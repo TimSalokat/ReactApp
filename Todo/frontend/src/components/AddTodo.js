@@ -4,31 +4,39 @@ import React, { useState } from "react"
 const AddTodo = ({ closeForm, onAdd }) => {
 
     const [label, setLabel] = useState("")
+    const [description, setDescription] = useState("")
 
     const onSubmit = (e) => {
         e.preventDefault()
         const isDone = false
-        onAdd({ label, isDone })
+        onAdd({ label, description, isDone })
         setLabel("")
+        setDescription("")
     }
 
     return (
-        <div className="form_add_todo" id="myForm">
-            <form className="form_container" onSubmit={onSubmit}>
-                <h1>Add Todo</h1>
-
-                <label><b>Task</b></label>
-                <input 
-                    type="text" 
-                    placeholder="Enter Task" 
-                    value={label} 
-                    onChange={(e) => setLabel(e.target.value)}
-                    required/>
-                <div className="form_button_container">
-                    <button type="submit" className="btn">Create</button>
-                    <button type="button" className="btn cancel" onClick={closeForm}>Close</button>
-                </div>
-            </form>
+        <div className="overlay" id="todo_form_overlay">
+            <div className="add_todo_form_container" id="todo_form">
+                <h2> Add Todo </h2>
+                <form onSubmit={onSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        value={label}
+                        onChange={(e) => setLabel(e.target.value)}
+                        required
+                    />
+                    <textarea
+                        placeholder="Description"
+                        value={description}
+                        onChange={(d) => setDescription(d.target.value)}
+                    />
+                    <div className="add_todo_button_container">
+                        <button type="button" className="add_todo_button cancel" onClick={closeForm}> Cancel </button>
+                        <button type="submit" className="add_todo_button confirm"> Add </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

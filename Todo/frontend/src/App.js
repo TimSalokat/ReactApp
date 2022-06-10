@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai"
 
 import SideBar from "./components/SideBar";
 import NavBar  from "./components/NavBar";
@@ -31,6 +30,7 @@ const App = () => {
     //Add a todo
     const addTodo = async (new_todo) => {
         console.log("Sending request to add item")
+        closeForm();
         const res = await fetch("http://localhost:8000/add-todo", {
             method: "POST",
             mode: "cors",
@@ -43,7 +43,7 @@ const App = () => {
     }
 
     //Delete a Todo
-    const delTodo = async (id) => {
+    const deleteTodo = async (id) => {
         console.log("Sending request to delete item with index " + id)
         const res = await fetch(`http://localhost:8000/del-todo?index=${id}`, {
             method: "DELETE",
@@ -85,13 +85,14 @@ const App = () => {
                 <div className="all_todos_container">
                     <ActiveTasks 
                         todos={todos.filter((todo) => todo.isDone === false)} 
-                        onDelete={delTodo}
+                        onDelete={deleteTodo}
                         checkTodo={checkTodo}
                         uncheckTodo={uncheckTodo}
+                        openForm={openForm}
                     />
                     <FinishedTodos 
                         todos={todos.filter((todo) => todo.isDone === true)}
-                        onDelete={delTodo} 
+                        onDelete={deleteTodo} 
                         checkTodo={checkTodo}
                         uncheckTodo={uncheckTodo}
                     />
@@ -99,11 +100,6 @@ const App = () => {
             </div>
 
             <AddTodo closeForm={closeForm} onAdd={addTodo} />
-            <AiOutlinePlusCircle 
-                id="open_form_btn" 
-                className="form_add_todo_btn" 
-                onClick={openForm}
-            />
         </>
     )
 }
@@ -122,12 +118,12 @@ const openNav = () => {
 
 //Form field for a new Todo | open and close
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
-    document.getElementById("open_form_btn").style.display = "none";
+    document.getElementById("todo_form_overlay").style.display = "block";
+    document.getElementById("todo_form").style.display = "block";
 }
 function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-    document.getElementById("open_form_btn").style.display = "block";
+    document.getElementById("todo_form_overlay").style.display = "none";
+    document.getElementById("todo_form").style.display = "none";
 }
 
 export default App
