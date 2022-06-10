@@ -6,7 +6,7 @@ const NavBar = ({ openNav }) => {
     <>
         <div className='topnav'>
             <MdMenu className='openbtn_side' onClick={openNav}/>  
-            <a className='active' href="#home">Home</a>
+            <a href="#home"><h2>Home</h2></a>
         </div>
     </>
   )

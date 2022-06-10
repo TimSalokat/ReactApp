@@ -13,6 +13,10 @@ def log(text):
         file.write(text)       
         file.write("\n\n")
         file.close()
+    
+def update_all_identifier():
+    for i in range(len(todos)):
+        todos[i]["identifier"] = i
 
 
 app = FastAPI()
@@ -36,11 +40,13 @@ todos= [
     
     {
         "label": "Placeholder not done",
-        "isDone": False
+        "isDone": False,
+        "identifier": 0
     },
     {
         "label": "Placeholder done",
-        "isDone": True
+        "isDone": True,
+        "identifier": 1
     }
 ]
 
@@ -60,6 +66,7 @@ async def get_todos() -> dict:
 async def add_todo(new_todo: str = Body(...)):
     new_todo_dict = json.loads(new_todo)
     log(f"Added <{new_todo_dict['label']}>")
+    new_todo_dict["identifier"] = len(todos)
     todos.append(new_todo_dict)                  
     return new_todo_dict
 
@@ -67,5 +74,17 @@ async def add_todo(new_todo: str = Body(...)):
 async def del_todo(index: int): 
     log(f"Deleted <{todos[index]['label']}>")
     del todos[index]
+    update_all_identifier()
     return todos
 
+@app.put("/mark-as-done")
+async def mark_as_done(index: int):
+    log(f"Marked <{todos[index]['label']}> as done")
+    todos[index]["isDone"] = True
+    return todos
+
+@app.put("/mark-as-undone")
+async def mark_as_undone(index: int):
+    log(f"Marked <{todos[index]['label']}> as undone")
+    todos[index]["isDone"] = False
+    return todos

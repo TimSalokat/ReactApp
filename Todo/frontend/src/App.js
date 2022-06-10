@@ -5,7 +5,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai"
 import SideBar from "./components/SideBar";
 import NavBar  from "./components/NavBar";
 import ActiveTasks from "./components/ActiveTodos";
-import FinishedTasks from "./components/FinishedTasks";
+import FinishedTodos from "./components/FinishedTodos";
 import AddTodo from "./components/AddTodo";
 
 const App = () => {
@@ -55,18 +55,48 @@ const App = () => {
             : alert("Error")
     }
 
+
+    const checkTodo = async (id) => {
+        const res = await fetch(`http://localhost:8000/mark-as-done?index=${id}`, {
+            method: "PUT",
+            mode: "cors",
+        })
+        res.status === 200
+            ? setTodos(await res.json())
+            : alert("Error")
+    }
+    const uncheckTodo = async (id) => {
+        const res = await fetch(`http://localhost:8000/mark-as-undone?index=${id}`, {
+            method: "PUT",
+            mode: "cors",
+        })
+        res.status === 200
+            ? setTodos(await res.json())
+            : alert("Error")
+    }
+
     return (
         <>
-            <SideBar closeNav={closeNav}/>
-            <NavBar openNav={openNav}/>
+            <SideBar style={{width:"0px"}}/>
 
             <div id="main">
+                
+                <NavBar openNav={openNav}/>
                 <div className="all_todos_container">
-                    <ActiveTasks todos={todos.filter((todo) => todo.isDone === false)} onDelete={delTodo}/>
-                    <FinishedTasks todos={todos.filter((todo) => todo.isDone === true)} onDelete={delTodo} />
+                    <ActiveTasks 
+                        todos={todos.filter((todo) => todo.isDone === false)} 
+                        onDelete={delTodo}
+                        checkTodo={checkTodo}
+                        uncheckTodo={uncheckTodo}
+                    />
+                    <FinishedTodos 
+                        todos={todos.filter((todo) => todo.isDone === true)}
+                        onDelete={delTodo} 
+                        checkTodo={checkTodo}
+                        uncheckTodo={uncheckTodo}
+                    />
                 </div>
             </div>
-
 
             <AddTodo closeForm={closeForm} onAdd={addTodo} />
             <AiOutlinePlusCircle 
@@ -80,12 +110,14 @@ const App = () => {
 
 //Navigation Bar at the Site
 const openNav = () => {
-    document.getElementById("Sidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-const closeNav = () => {
-    document.getElementById("Sidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    const side_bar = document.getElementById("Sidebar")
+    if (side_bar.style.width === "250px"){
+        side_bar.style.width = "0px"
+        document.getElementById("main").style.marginLeft = "0px";
+    } else {
+        side_bar.style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
 }
 
 //Form field for a new Todo | open and close

@@ -1,13 +1,11 @@
 import React from 'react'
-import {MdMenuOpen} from "react-icons/md"
 
-const SideBar = ({ closeNav }) => {  
+const SideBar = () => {  
 
   return (
     <div>
         <div id="Sidebar" className="sidebar">
-            <MdMenuOpen className="closebtn" onClick={closeNav}/>
-            <a href="#">Home</a>
+            <a href="#home">Home</a>
         </div>
     </div>
   )
