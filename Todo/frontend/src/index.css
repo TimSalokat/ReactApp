@@ -140,74 +140,6 @@ body, #root{
     right: 5%;
     z-index: 9;
   }
-  
-  /* Add styles to the form container */
-  .form_container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-  }
-
-  .form_button_container {
-    display: grid;
-    grid-template-areas: "a b";
-  }
-  
-  /* Full-width input fields */
-  .form_container input[type=text], .form_container input[type=password] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-  }
-  
-  /* When the inputs get focus, do something */
-  .form_container input[type=text]:focus, .form_container input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-  }
-  
-  /* Set a style for the submit/login button */
-  .form_container .btn {
-    background-color: rgb(170, 255, 159);
-    color: black;
-    padding: 16px 20px;
-    border: 1px solid gray;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-  }
-  
-  /* Add a red background color to the cancel button */
-  .form_container .cancel {
-    background-color: #ff818b;
-  }
-  
-  /* Add some hover effects to buttons */
-  .form_container .btn:hover, .open-button:hover {
-    opacity: 1;
-  }
-
-  /* Button for opening the form */
-  .form_add_todo_btn {
-    font-size: 70px;
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-    margin: 0;
-    padding: 20px 20px;
-    color: #818181;
-  }
-
-  .form_add_todo_btn:hover {
-    cursor: pointer;
-    font-size: 75px;
-    padding: 17.5px 17.5px;
-    color: #888888;
-  }
-
 
 /* Todo stuff */
 
@@ -273,8 +205,15 @@ body, #root{
   margin: 10px auto;
   border-radius: 2px;
   background-color: #f3f3f3;
-  /* border: 2px solid #b9b9b9;
-  background-color: #cecece; */
+}
+
+.todo_item_main {
+  grid-area: a;
+  overflow-wrap: anywhere;
+}
+
+.todo_item div {
+  max-height: 85px;
 }
 
 .todo_item h3 {
@@ -287,10 +226,11 @@ body, #root{
   text-decoration: line-through;
 }
 
-.todo_item p {
+.todo_item_description {
   font-size: 15px;
   margin: 0;
   padding-bottom: 10px;
+  overflow: hidden;
 }
 
 .todo_checkbox {
@@ -317,13 +257,112 @@ body, #root{
   padding: 0px;
   padding-right: 5px;
   margin: 0px;
-  font-size: 40px;
+  font-size: 30px;
   cursor: pointer;
   float: right;
 }
 
 .todo_del_btn:hover {
-  font-size: 45px;
-  padding-right: 2.5px;
-  color: rgb(160, 0, 0);
+  color: red;
+}
+
+
+/* !Form adding a todo */
+.overlay, .add_todo_form_container {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.add_todo_form_container {
+  width: 60%;
+  height: fit-content;
+  min-height: 500px;
+  max-height: 70%;
+  top: 20%;
+  left: 20%;
+  background-color: rgb(30, 30, 30);
+  border-radius: 20px;
+  z-index: 3;
+  cursor: auto;
+  display: none;
+}
+
+.add_todo_form_container h2, input, textarea{
+  color: rgb(240, 240, 240);
+  margin-left: 20px;
+  font-size: 35px;
+}
+
+.add_todo_form_container h2 {
+  margin-bottom: 20px;
+  width: fit-content;
+  border-bottom: 3px solid var(--orange_seperator);
+}
+
+.add_todo_form_container input, textarea {
+  background-color: rgb(30,30,30);
+  width: 90%;
+  font-size: 20px;
+  height: 30px;
+  padding-left: 5px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(240, 240, 240);
+  transition: 0.4s ease-in-out;
+  resize: none;
+}
+
+.add_todo_form_container input:focus {
+  border-bottom: 1px solid lightblue;
+}
+
+.add_todo_form_container textarea {
+  border: 1px solid rgb(240, 240, 240);
+  border-radius: 5px;
+  margin-top: 10px;
+  min-height: 150px;
+  font-size: 17px;
+  margin-top: 15px;
+  padding-left: 10px;
+  padding-right: 0px;
+}
+
+.add_todo_button_container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.add_todo_button {
+  border-radius: 5px;
+  height: 40px;
+  width: 100px;
+  background-color: rgb(30, 30, 30);
+  border: 1px solid rgb(240, 240, 240);
+  color: rgb(240, 240, 240);
+  margin: 5px;
+  margin-bottom: 20px;
+}
+
+.add_todo_button.confirm {
+  margin-right: 20px;
+}
+
+.add_todo_button.confirm:hover {
+  border: 1px solid var(--orange_seperator);
+  color: var(--orange_seperator)
+}
+
+.add_todo_button.cancel:hover {
+  border: 1px solid red;
+  color: red;
 }
