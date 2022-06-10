@@ -6,16 +6,19 @@ const Todo = ({ todo, onDelete, index, checkTodo, uncheckTodo }) => {
   return (
     
     <div className="todo_item">
-      <>
-        <CheckBox todo={todo} index={index} checkTodo={checkTodo} uncheckTodo={uncheckTodo} />
-      </>
       <div>
-          <h3 className={`todo ${todo.isDone && 'is_done'}`}>{todo.label}</h3>
-          <p>{todo.isDone ? "Task is finished" : "Task is unfinished"}</p>
+        <CheckBox todo={todo} index={index} checkTodo={checkTodo} uncheckTodo={uncheckTodo} />
       </div>
-      <>
+      <div className="todo_item_main">
+          <h3 className={`todo ${todo.isDone && 'is_done'}`}>{todo.label}</h3>
+          <p className="todo_item_description"> 
+            {todo.description.substr(0,65) + 
+            (todo.description.length>65 ? "...": "")} 
+          </p>
+      </div>
+      <div>
         <DeleteButton todo={todo} index={index} onDelete={onDelete} />
-      </>
+      </div>
     </div>
   )
 }
