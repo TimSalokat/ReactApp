@@ -200,3 +200,35 @@
 
 2022-06-10 16:39:33.233758 || Added <Yes sit>
 
+2022-06-11 10:53:23.633400 || Added <Task 1>
+
+2022-06-11 10:56:24.152924 || Added <Task 2>
+
+2022-06-11 10:56:39.314844 || Marked <Task 2> as done
+
+2022-06-11 10:56:41.424274 || Marked <Task 1> as done
+
+2022-06-11 10:56:44.270951 || Marked <Task 1> as undone
+
+2022-06-11 11:01:56.865313 || Added <Hey, man this is a nice thing>
+
+2022-06-11 11:01:58.141785 || Marked <Hey, man this is a nice thing> as done
+
+2022-06-11 11:02:00.318841 || Deleted <Hey, man this is a nice thing>
+
+2022-06-11 11:52:30.729289 || Added <This works quite good>
+
+2022-06-11 11:52:31.870402 || Marked <This works quite good> as done
+
+2022-06-11 11:52:32.885326 || Marked <This works quite good> as undone
+
+2022-06-11 11:52:38.474943 || Marked <This works quite good> as done
+
+2022-06-11 11:52:39.569531 || Deleted <This works quite good>
+
+2022-06-11 11:54:56.815237 || Deleted <Task 2>
+
+2022-06-11 11:54:58.704559 || Marked <Task 1> as done
+
+2022-06-11 11:54:59.485341 || Deleted <Task 1>
+

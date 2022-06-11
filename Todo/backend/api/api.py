@@ -46,7 +46,8 @@ app.add_middleware(
     allow_headers=["*"]    
 )
 
-todos= []
+todos = []
+todos = eval(get_todos_from_file())
 
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
@@ -86,5 +87,3 @@ async def mark_as_undone(index: int):
     todos[index]["isDone"] = False
     update_todos_file(todos)
     return todos
-
-todos = eval(get_todos_from_file())
